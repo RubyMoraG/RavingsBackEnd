@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 // GET all posts
 export const getAllPosts = async (req, res) => {
   try {
-    const posts = await prisma.post.findMany({
+    const posts = await prisma.posts.findMany({
       include: {
         user: true,
       },

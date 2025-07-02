@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 // GET all users
 export const getAllUsers = async (req, res) => {
   try {
-    const users = await prisma.user.findMany({
+    const users = await prisma.users.findMany({
       include: {
         profile: true,
         posts: true,
@@ -29,3 +29,20 @@ export const createUser = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+export const loginUser = async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const user = await prisma.users.findUnique({
+      where: { username },
+    });
+    if (user && user.password === password) {
+      res.status(200).json({ message: 'Login successful', user });
+    } else {
+      res.status(401).json({ message: 'Invalid credentials' });
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ error: 'Error logging in' });
+  }
+}
