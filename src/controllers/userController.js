@@ -29,7 +29,7 @@ export const createUser = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
-
+//Login
 export const loginUser = async (req, res) => {
   const { username, password } = req.body;
   try {
