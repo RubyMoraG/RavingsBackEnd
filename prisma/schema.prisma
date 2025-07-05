@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,33 +6,31 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model User {
-  id Int @id @default(autoincrement())
-  username String @unique
-  email String @unique
-  password String
+  id         Int      @id @default(autoincrement())
+  username   String   @unique
+  email      String   @unique
+  password   String
   created_at DateTime @default(now())
-  
-  post Post[]
-  profile Profile?
+  post       Post[]
+  profile    Profile?
 }
+
 model Profile {
-  id Int @id @default(autoincrement())
-  user_id Int @unique
-  username String @unique
-
-  bio String?
+  id              Int      @id @default(autoincrement())
+  user_id         Int      @unique
+  username        String   @unique
+  bio             String?
   profile_picture String?
-  created_at DateTime @default(now())
-  
-  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  created_at      DateTime @default(now())
+  user            User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
-model Post {
-  id Int @id @default(autoincrement())
-  user_id Int
-  content String
 
+model Post {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  content    String
   created_at DateTime @default(now())
-  
-  user User @relation(fields: [user_id], references: [id])
+  user       User     @relation(fields: [user_id], references: [id])
 }

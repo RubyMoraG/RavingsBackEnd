@@ -22,7 +22,17 @@ export const createUser = async (req, res) => {
   const { username, email, password } = req.body;
   try {
     const user = await prisma.user.create({
-      data: { username, email, password },
+      data: { username, email, password,
+        profile:{
+          create:{
+            username,
+            bio: "My first Bio"
+          }
+        }
+       },
+       include:{
+        profile:true,
+       },
     });
     res.status(201).json(user);
   } catch (error) {
