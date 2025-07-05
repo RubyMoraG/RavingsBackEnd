@@ -1,7 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
-
 // GET all users
 export const getAllUsers = async (req, res) => {
   try {
@@ -10,7 +9,7 @@ export const getAllUsers = async (req, res) => {
         profile: true,
         posts: true,
       },
-      
+
     });
     res.json(users);
   } catch (error) {

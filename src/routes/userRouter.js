@@ -8,7 +8,6 @@ import {
 
 const router = express.Router();
 
-
 router.get('/users', getAllUsers);
 router.post('/users', createUser);
 router.post('/login', loginUser);
