@@ -10,6 +10,7 @@ export const getAllUsers = async (req, res) => {
         profile: true,
         posts: true,
       },
+      
     });
     res.json(users);
   } catch (error) {
