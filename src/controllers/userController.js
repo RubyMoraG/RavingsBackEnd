@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 // GET all users
 export const getAllUsers = async (req, res) => {
   try {
-    const users = await prisma.users.findMany({
+    const users = await prisma.user.findMany({
       include: {
         profile: true,
         posts: true,
@@ -21,7 +21,7 @@ export const getAllUsers = async (req, res) => {
 export const createUser = async (req, res) => {
   const { username, email, password } = req.body;
   try {
-    const user = await prisma.users.create({
+    const user = await prisma.user.create({
       data: { username, email, password },
     });
     res.status(201).json(user);
@@ -33,7 +33,7 @@ export const createUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   const { username, password } = req.body;
   try {
-    const user = await prisma.users.findUnique({
+    const user = await prisma.user.findUnique({
       where: { username },
     });
     if (user && user.password === password) {
